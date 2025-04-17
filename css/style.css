@@ -1,0 +1,74 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #111;
+  }
+  
+  /* Dark Hero Section */
+  .bg-gradient-primary {
+    background: linear-gradient(to right, #0f2027, #2c5364);
+    color: white;
+  }
+  
+  .navbar {
+    background-color: #ffffff !important;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: #0066ff !important;
+  }
+  
+  .btn-primary {
+    background-color: #2bc0e4;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #219ebc;
+  }
+  
+  .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #000;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #111;
+    color: #fff;
+  }
+  
+  footer a {
+    color: #ccc;
+  }
+  
+  footer a:hover {
+    color: #fff;
+  }
+  
+  .text-primary {
+    color: #0d2d3e !important;
+  }
+  
+  .bg-primary {
+    background-color: #0d2d3e !important;
+  }
+  
+  .btn-primary {
+    background-color: #0d2d3e;
+    border-color: #0d2d3e;
+  }
+  .btn-primary:hover {
+    background-color: #103549;
+  }
+  footer a {
+    transition: 0.3s ease-in-out;
+    color: #d1d1d1;
+  }
+  
+  footer a:hover {
+    color: #00ffcc;
+    text-shadow: 0 0 8px #00ffcc, 0 0 16px #00ffcc;
+  }
+  
