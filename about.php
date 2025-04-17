@@ -1,4 +1,5 @@
 <?php include 'includes/header.php'; ?>
+<?php include 'includes/dbconnection.php'; ?>
 
 <!-- Hero Section -->
 <section class="text-white text-center py-5" style="background: linear-gradient(to right, #0f2027, #2c5364);">
@@ -71,6 +72,41 @@
     <p class="fs-5">
       💡 That’s the scale of the problem we’re working to solve — one program, one child, one community at a time.
     </p>
+  </div>
+</section>
+
+<!-- Meet Our Volunteers -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center text-primary mb-5">🤝 Meet Our Volunteers</h2>
+    <div class="row">
+      <?php
+      $query = "SELECT u.name, v.qualification, v.experience 
+                FROM users u 
+                INNER JOIN volunteer_profiles v ON u.id = v.user_id
+                WHERE u.role = 'volunteer'
+                ORDER BY u.created_at DESC 
+                LIMIT 8";
+      $stmt = $dbh->prepare($query);
+      $stmt->execute();
+      $volunteers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      if ($volunteers):
+        foreach ($volunteers as $volunteer):
+      ?>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title text-success"><?= htmlspecialchars($volunteer['name']) ?></h5>
+              <p class="mb-2"><strong>Qualification:</strong> <?= htmlspecialchars($volunteer['qualification']) ?></p>
+              <p class="mb-0"><strong>Experience:</strong> <?= htmlspecialchars($volunteer['experience']) ?> years</p>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; else: ?>
+        <p class="text-muted text-center">No volunteers found.</p>
+      <?php endif; ?>
+    </div>
   </div>
 </section>
 

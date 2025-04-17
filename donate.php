@@ -2,6 +2,8 @@
 include 'includes/header.php';
 include 'includes/dbconnection.php';
 
+$showQR = false;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['donate'])) {
     $name = $_POST['full_name'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -18,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['donate'])) {
             $stmt->bindParam(':amount', $amount);
             $stmt->bindParam(':message', $message);
             $stmt->execute();
-            echo "<script>alert('Thank you for your donation!');</script>";
+            $showQR = true;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            echo "<div class='alert alert-danger'>Error: " . $e->getMessage() . "</div>";
         }
     }
 }
@@ -71,34 +73,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['donate'])) {
   </div>
 </section>
 
-<!-- Donation Form -->
+<!-- Donation Form OR QR Confirmation -->
 <section class="py-5 bg-light">
   <div class="container">
-    <h2 class="text-primary mb-4">Make a Donation</h2>
-    <form method="POST" action="">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Full Name</label>
-          <input type="text" name="full_name" class="form-control" required>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Email Address</label>
-          <input type="email" name="email" class="form-control" required>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Amount (₹)</label>
-          <input type="number" name="amount" class="form-control" required>
-        </div>
-        <div class="col-md-12 mb-3">
-          <label class="form-label">Message (Optional)</label>
-          <textarea name="message" rows="4" class="form-control"></textarea>
-        </div>
-        <div class="col-md-12">
-          <button type="submit" name="donate" class="btn btn-primary px-4">Donate Now</button>
-        </div>
+    <h2 class="text-primary mb-4"><?= $showQR ? "Scan to Complete Donation" : "Make a Donation" ?></h2>
+
+    <?php if ($showQR): ?>
+      <div class="text-center">
+        <p class="fs-5">Thank you for your details! Please scan the QR code below to complete your donation:</p>
+        <img src="images/qr.png" alt="QR Code for Payment" style="width: 250px; border: 2px solid #ccc; padding: 10px;">
+        <p class="mt-3 text-muted fs-6">We’ll send you a receipt in the next 48 hours.</p>
+
+        <!-- Done button -->
+        <button class="btn btn-success mt-4 px-4" onclick="handleDone()">Done</button>
       </div>
-    </form>
+    <?php else: ?>
+      <form method="POST" action="">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="full_name" class="form-control" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" name="amount" class="form-control" required>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Message (Optional)</label>
+            <textarea name="message" rows="4" class="form-control"></textarea>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" name="donate" class="btn btn-primary px-4">Donate Now</button>
+          </div>
+        </div>
+      </form>
+    <?php endif; ?>
   </div>
 </section>
+
+<!-- Thank You Redirect Script -->
+<script>
+  function handleDone() {
+    alert("Thank you for your donation! We truly appreciate your support.");
+    window.location.href = "index.php";
+  }
+</script>
 
 <?php include 'includes/footer.php'; ?>

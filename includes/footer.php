@@ -47,8 +47,8 @@
       <!-- Column 5: Contact Us -->
       <div class="col-md-2 mb-4">
         <h5 class="text-success">Contact Us</h5>
-        <p class="mb-1"><i class="bi bi-geo-alt-fill"></i> Hiranandani Estate,<br>Thane, Maharashtra</p>
-        <p class="mb-1"><i class="bi bi-telephone-fill"></i> +91 (555) 123-4567</p>
+        <p class="mb-1"><i class="bi bi-geo-alt-fill"></i> KJ Somaiya College of Engineering, <br>Mumbai</p>
+        <p class="mb-1"><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
         <p class="mb-2"><i class="bi bi-envelope-fill"></i> info@educonnect.org</p>
       </div>
 
